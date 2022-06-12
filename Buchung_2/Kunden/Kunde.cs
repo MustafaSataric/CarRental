@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Buchung_2.Zusammenhänge;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,11 +13,13 @@ namespace Buchung_2
         protected DateTime gebDatum;
         protected char fuehrerrschein;
 
+        Methoden m = new Methoden();
         public string Name { get => name; set => name = value; }
         public string VorName { get => vorname; set => vorname = value; }
         public char Fuehrerschein { get => fuehrerrschein; set => fuehrerrschein = value; }
         public DateTime GebDatum { get => gebDatum; set => gebDatum = value; }
 
+        public abstract double rabatt();
         public abstract void KundeAufnehmen();
         public abstract void KundeAusgeben();
 
@@ -43,6 +46,11 @@ namespace Buchung_2
                 return Convert.ToChar("j");
             }
             return Convert.ToChar("f");
+        }
+
+        public string kurzekonfi()
+        {
+            return name;
         }
     }
 }

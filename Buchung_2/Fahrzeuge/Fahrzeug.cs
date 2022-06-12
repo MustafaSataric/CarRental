@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Buchung_2.Zusammenhänge;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -8,11 +9,11 @@ namespace Buchung_2
     abstract class Fahrzeug // abstract bedeutet: diese Klasse kann nicht instanziiert werden! Wir können nur von den 
                             // Kindklassen Objekte/Instanzen erzeugen!
     {
-        protected string markeModell = "BMW", kennzeichen = "K MM 2901", ladeform; // die gemeinsamen Attribute
-        protected double kmStand = 2300;
-        protected string fahrzeugTyp = "SUV";
-        protected double grundpreis = 2300;
-        protected double preisProKm = 100;
+        protected string markeModell, kennzeichen ,  fahrzeugTyp; // die gemeinsamen Attribute
+        protected double kmStand, grundpreis, preisProKm;
+        protected int leistung;
+
+        public Methoden m = new Methoden();
         // protected-Attribute sind die Attribute der Basisklasse
         // nur die Kindklassen können über diese Attribute verfügen!
 
@@ -20,6 +21,7 @@ namespace Buchung_2
 
         public string MarkeModell { get => markeModell; set => markeModell = value; }
         public string Kennzeichen { get => kennzeichen; set => kennzeichen = value; }
+        public int Leistung { get => leistung; set => leistung = value; }
         public string FahrzeugTyp { get => fahrzeugTyp; set => fahrzeugTyp = value; }
         public double Grundpreis { get => grundpreis; set => grundpreis = value; }
         public double PreisProKm { get => preisProKm; set => preisProKm = value; }
@@ -34,9 +36,9 @@ namespace Buchung_2
         public abstract void KonfigurationsDaten();
 
 
-        public void KurzeKonfi()
+        public string KurzeKonfi()
         {
-            Console.WriteLine("Fahrzeug: {0}", markeModell);
+            return markeModell;
         }
 
     }

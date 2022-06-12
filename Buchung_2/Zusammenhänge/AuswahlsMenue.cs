@@ -15,8 +15,8 @@ namespace Buchung_2
 
         public static int Menue(string title, params string[] options)
         {
-            Console.SetWindowSize(60, 30);
-            Console.SetBufferSize(60, 30);
+            Console.SetWindowSize(70, 30);
+            Console.SetBufferSize(70, 30);
             int startY = 8, currentSelection = 0;
 
             ConsoleKey key;
@@ -42,21 +42,18 @@ namespace Buchung_2
 
                 for (int i = 0, z = 0; i < options.Length; i++, z = z + 2)
                 {
+                        Console.SetCursorPosition(((Console.WindowWidth / 2) - ("X. Option: " + options[0]).Length / 2), startY + z);
+                        if (i == currentSelection)
+                        {
+                            color(0);
+                        }
 
-                    Console.SetCursorPosition(((Console.WindowWidth / 2) - ("X. Option: " + options[0]).Length / 2), startY + z);
-                    if (i == currentSelection)
-                    {
-                        color(0);
-                    }
+                   
+                            string currentOption = (i + 1) + ". Option: " + options[i] + " ";
+                            Console.WriteLine(currentOption);
 
-
-                    string currentOption = (i + 1) + ". Option: " + options[i] + " ";
-                    Console.WriteLine(currentOption);
-                    ;
-
-                    Console.ResetColor();
-                    color(1);
-
+                            Console.ResetColor();
+                            color(1);
                 }
 
                 key = Console.ReadKey(true).Key;
@@ -104,13 +101,13 @@ namespace Buchung_2
         {
             if (choice == 0)
             {
-                Console.BackgroundColor = ConsoleColor.Black;
-                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.BackgroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.DarkGray;
             }
             else if (choice == 1)
             {
-                Console.ForegroundColor = ConsoleColor.DarkGray;
-                Console.BackgroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.BackgroundColor = ConsoleColor.DarkGray;
             }
             return 0;
         }
