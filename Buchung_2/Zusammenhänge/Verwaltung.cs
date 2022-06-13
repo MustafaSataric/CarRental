@@ -10,9 +10,9 @@ namespace Buchung_2
         Methoden m = new Methoden();
 
         // ´Falls ihre Zielordner abweichen nur hier ändern
-        public const string benutzerDb = "C:\\_IAH11\\MustafaSataric\\Benutzer.txt";
-        public const string fahrzeugDb = "C:\\_IAH11\\MustafaSataric\\Fahrzeuge.txt";
-        public const string buchungsDb = "C:\\_IAH11\\MustafaSataric\\Buchungen.txt";
+        public const string benutzerDb = "C:\\_UNDERFOLDER\\SemirSljiivic\\Benutzer.txt";
+        public const string fahrzeugDb = "C:\\_UNDERFOLDER\\SemirSljiivic\\Fahrzeuge.txt";
+        public const string buchungsDb = "C:\\_UNDERFOLDER\\SemirSljiivic\\Buchungen.txt";
         public void KundenVerwalten()
         {
             Console.Title = "Rent-a-Car V1.0 © Mustafa Sataric";
