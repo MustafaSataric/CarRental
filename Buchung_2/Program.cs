@@ -10,7 +10,7 @@ namespace Buchung_2
         {
 
 
-            Console.Title = "Rent V1.0 © Sataric Mustafa";
+            Console.Title = "Rent V1.0 © Semir Sljiivic";
             var x = 0;
             var y = 0;
             int auswahl = 0;
