@@ -1,11 +1,36 @@
 {
   "version": 3,
   "targets": {
-    "net6.0-windows7.0": {}
+    "net6.0-windows7.0": {
+      "Glaswandler.FIA34.FirstClass/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/RechnenLib.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/RechnenLib.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "Glaswandler.FIA34.FirstClass/1.0.0": {
+      "sha512": "bmpSdEU7Wrx3ucftEoL+y9kXdswLMydOKuNNLpBWNocSGVcD5ftWRa/9E7UIc6nyEii8ggGnJ/4lu0eyzWkS6w==",
+      "type": "package",
+      "path": "glaswandler.fia34.firstclass/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "glaswandler.fia34.firstclass.1.0.0.nupkg.sha512",
+        "glaswandler.fia34.firstclass.nuspec",
+        "lib/net5.0/RechnenLib.dll"
+      ]
+    }
+  },
   "projectFileDependencyGroups": {
-    "net6.0-windows7.0": []
+    "net6.0-windows7.0": [
+      "Glaswandler.FIA34.FirstClass >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\satar\\.nuget\\packages\\": {}
@@ -13,11 +38,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\satar\\source\\repos\\Buchung_2\\Buchung_2\\Buchung_2.csproj",
+      "projectUniqueName": "C:\\Users\\satar\\OneDrive\\Desktop\\Buchung_2\\Buchung_2\\Buchung_2.csproj",
       "projectName": "Buchung_2",
-      "projectPath": "C:\\Users\\satar\\source\\repos\\Buchung_2\\Buchung_2\\Buchung_2.csproj",
+      "projectPath": "C:\\Users\\satar\\OneDrive\\Desktop\\Buchung_2\\Buchung_2\\Buchung_2.csproj",
       "packagesPath": "C:\\Users\\satar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\satar\\source\\repos\\Buchung_2\\Buchung_2\\obj\\",
+      "outputPath": "C:\\Users\\satar\\OneDrive\\Desktop\\Buchung_2\\Buchung_2\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\satar\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -45,6 +70,12 @@
     "frameworks": {
       "net6.0-windows7.0": {
         "targetAlias": "net6.0-Windows",
+        "dependencies": {
+          "Glaswandler.FIA34.FirstClass": {
+            "target": "Package",
+            "version": "[1.0.0, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",

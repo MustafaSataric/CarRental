@@ -21,20 +21,22 @@ namespace Buchung_2
         {
             Console.WriteLine("\nPrivat Konto Erstellen:");
             Console.WriteLine("\nName:");
-            name = Console.ReadLine();
+            name = m.validationVonStrings();
             Console.WriteLine("\nVorname:");
-            vorname = Console.ReadLine();
+            vorname = m.validationVonStrings();
             Console.WriteLine("\nGeburtsjahr:");
-            int jahr = Convert.ToInt32(m.validitationVonDoubles(1922, 2003));
+            int jahr = m.validitationVonInts(1922, 2003);
             gebDatum = new DateTime(jahr, 1, 1, 6, 32, 0);
             Console.WriteLine("\nFührerschein (j/n):");
             fuehrerrschein = abfrage();
             Console.WriteLine("\nAutoClub mitgliedsschaft (j/n):");
             automobilclubMitglied = abfrage();
-            using (StreamWriter sw = File.AppendText(@"C:\_IAH11\MustafaSataric\Benutzer.txt"))
+            using (StreamWriter sw = File.AppendText(Verwaltung.benutzerDb))
             {
                 sw.WriteLine("p;" + name + ";" + vorname + ";" + gebDatum + ";" + fuehrerrschein + ";" + automobilclubMitglied + ";");
             }
+            Console.WriteLine("\n\nNeue Benutzer " + name + " wurde anglegt.");
+            Console.ReadKey();
         }
         public override void KundeAusgeben()
         {

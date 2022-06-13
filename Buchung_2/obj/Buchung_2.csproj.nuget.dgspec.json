@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\satar\\source\\repos\\Buchung_2\\Buchung_2\\Buchung_2.csproj": {}
+    "C:\\Users\\satar\\OneDrive\\Desktop\\Buchung_2\\Buchung_2\\Buchung_2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\satar\\source\\repos\\Buchung_2\\Buchung_2\\Buchung_2.csproj": {
+    "C:\\Users\\satar\\OneDrive\\Desktop\\Buchung_2\\Buchung_2\\Buchung_2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\satar\\source\\repos\\Buchung_2\\Buchung_2\\Buchung_2.csproj",
+        "projectUniqueName": "C:\\Users\\satar\\OneDrive\\Desktop\\Buchung_2\\Buchung_2\\Buchung_2.csproj",
         "projectName": "Buchung_2",
-        "projectPath": "C:\\Users\\satar\\source\\repos\\Buchung_2\\Buchung_2\\Buchung_2.csproj",
+        "projectPath": "C:\\Users\\satar\\OneDrive\\Desktop\\Buchung_2\\Buchung_2\\Buchung_2.csproj",
         "packagesPath": "C:\\Users\\satar\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\satar\\source\\repos\\Buchung_2\\Buchung_2\\obj\\",
+        "outputPath": "C:\\Users\\satar\\OneDrive\\Desktop\\Buchung_2\\Buchung_2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\satar\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -39,6 +39,12 @@
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-Windows",
+          "dependencies": {
+            "Glaswandler.FIA34.FirstClass": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

@@ -3,12 +3,16 @@ using System;
 
 namespace Buchung_2
 {
-    class Verwaltung
+    public class Verwaltung
     {
         List<Kunde> testKunde = new List<Kunde>();
         List<Fahrzeug> testFahrzeug = new List<Fahrzeug>();
-        List<Fahrzeug> testAusleihendesFahrzeug = new List<Fahrzeug>();
         Methoden m = new Methoden();
+
+        // ´Falls ihre Zielordner abweichen nur hier ändern
+        public const string benutzerDb = "C:\\_IAH11\\MustafaSataric\\Benutzer.txt";
+        public const string fahrzeugDb = "C:\\_IAH11\\MustafaSataric\\Fahrzeuge.txt";
+        public const string buchungsDb = "C:\\_IAH11\\MustafaSataric\\Buchungen.txt";
         public void KundenVerwalten()
         {
             Console.Title = "Rent-a-Car V1.0 © Mustafa Sataric";
@@ -44,7 +48,7 @@ namespace Buchung_2
         }
         public int KundenLesen()
         {
-            using (StreamReader sr = new StreamReader(@"C:\_IAH11\MustafaSataric\Benutzer.txt"))
+            using (StreamReader sr = new StreamReader(benutzerDb))
             {
                 string line;
                 int iLfdNr = 0;
@@ -59,9 +63,9 @@ namespace Buchung_2
                         FirmenKunde firmenKunde = new FirmenKunde();
                         firmenKunde.Name = zeile[1];
                         firmenKunde.VorName = zeile[2];
-                        firmenKunde.GebDatum = Convert.ToDateTime(zeile[3]);
-                        firmenKunde.Firma = zeile[4];
-                        firmenKunde.AnzahlBuchungen = Convert.ToInt32(zeile[5]);
+                        firmenKunde.GebDatum = Convert.ToDateTime(zeile[4]);
+                        firmenKunde.Firma = zeile[5];
+                        firmenKunde.AnzahlBuchungen = Convert.ToInt32(zeile[6]);
                         testKunde.Add(firmenKunde);
                         iLfdNr++;
                     }
@@ -99,11 +103,11 @@ namespace Buchung_2
                 switch (auswahl)
                 {
                     case 0:
-                        testKunde[iLfdNr ] = new PrivatKunde();
-                        testKunde[iLfdNr ].KundeAufnehmen(); // hier Polymorphie !!
+                        testKunde[iLfdNr] = new PrivatKunde();
+                        testKunde[iLfdNr].KundeAufnehmen(); // hier Polymorphie !!
                         break;
                     case 1:
-                        testKunde[iLfdNr ] = new FirmenKunde();
+                        testKunde[iLfdNr] = new FirmenKunde();
                         testKunde[iLfdNr].KundeAufnehmen(); // hier auch Polymorphie!!
                         break;
                     case -1:
@@ -113,15 +117,27 @@ namespace Buchung_2
                         auswahl = AuswahlsMenue.Menue("Kundendateneingabe", "<P>rivatkunde", "<F>irmenkunde");
                         break;
                 }
-                Console.WriteLine("Benutzer: " + testKunde[iLfdNr ].kurzekonfi() + " wurde erfolgreich zur Datenbank hinzugefügt.");
+                Console.WriteLine("Benutzer: " + testKunde[iLfdNr].kurzekonfi() + " wurde erfolgreich zur Datenbank hinzugefügt.");
             } while (auswahl != -1);
         }
 
         public void KundenlisteAusgeben()
         {
-            int Anzahl = KundenLesen();
+            int Anzahl = KundenLesen(), auswahl = 0;
+            string[] kunden = new string[Anzahl];
             Console.Clear();
-            for (int z = 0; z < Anzahl; z++) testKunde[z].KundeAusgeben();
+            for (int i = 0; i < Anzahl; i++)
+            {
+                kunden[i] = testKunde[i].Name + " " + testKunde[i].VorName;
+            }
+            auswahl = AuswahlsMenue.Menue("Fahrzeugliste", kunden);
+            if (auswahl != -1 && testKunde.Count > 0)
+            {
+                Console.Clear();
+                testKunde[auswahl].KundeAusgeben();
+                Console.ReadKey();
+
+            }
         }
 
 
@@ -129,7 +145,7 @@ namespace Buchung_2
 
         public int FahrzeugeLesen()
         {
-            using (StreamReader sr = new StreamReader(@"C:\_IAH11\MustafaSataric\Fahrzeuge.txt"))
+            using (StreamReader sr = new StreamReader(fahrzeugDb))
             {
                 string line;
                 int iFahrzeugNr = 0;
@@ -145,7 +161,7 @@ namespace Buchung_2
                         pkw.Karosserieform = Convert.ToChar(zeile[0]);
                         pkw.MarkeModell = zeile[1];
                         pkw.KmStand = Convert.ToDouble(zeile[2]);
-                        pkw.Grundpreis = Convert.ToInt32(zeile[3]);
+                        pkw.Grundpreis = Convert.ToDouble(zeile[3]);
                         pkw.PreisProKm = Convert.ToDouble(zeile[4]);
                         pkw.Leistung = Convert.ToInt32(zeile[5]);
                         testFahrzeug.Add(pkw);
@@ -248,11 +264,11 @@ namespace Buchung_2
             auswahl = AuswahlsMenue.Menue("Welches Fahrzeug möchten sie Löschen?", array1);
 
 
-            List<string> lines = File.ReadAllLines(@"C:\_IAH11\MustafaSataric\Fahrzeuge.txt").ToList();
+            List<string> lines = File.ReadAllLines(fahrzeugDb).ToList();
             if (lines.Count >= iFahrzeugNr + 1)
             {
                 lines.RemoveAt(iFahrzeugNr + 1);
-                File.WriteAllLines(@"C:\_IAH11\MustafaSataric\Fahrzeuge.txt", lines);
+                File.WriteAllLines(fahrzeugDb, lines);
             }
             Console.ReadKey();
 
@@ -260,19 +276,26 @@ namespace Buchung_2
 
         public void FahrzeugBestand()
         {
-            int iFahrzeugNr = FahrzeugeLesen();
+            int iFahrzeugNr = FahrzeugeLesen(), auswahl = 0;
+            string[] fahrzeuge = new string[iFahrzeugNr];
             Console.Clear();
             for (int i = 0; i < iFahrzeugNr; i++)
             {
-                Console.WriteLine("\n\n\tFahrzeug Nr.: " + i);
-                testFahrzeug[i].KonfigurationsDaten();
+                fahrzeuge[i] = testFahrzeug[i].MarkeModell;
             }
-            Console.ReadKey();
+            auswahl = AuswahlsMenue.Menue("Fahrzeugliste", fahrzeuge);
+            if (auswahl != -1 && testFahrzeug.Count > 0)
+            {
+                Console.Clear();
+                testFahrzeug[auswahl].KonfigurationsDaten();
+                Console.ReadKey();
+
+            }
         }
 
         public string[] FahrzeugeAusgeben(string x)
         {
-            using (StreamReader sr = new StreamReader(@"C:\_IAH11\MustafaSataric\Fahrzeuge.txt"))
+            using (StreamReader sr = new StreamReader(fahrzeugDb))
             {
                 int i = 0;
                 string line;
@@ -311,8 +334,7 @@ namespace Buchung_2
             if (fahrzeugArt != -1)
             {
                 for (int z = 0; z < Anzahl; z++) ausleihender[z] = testKunde[z].kurzekonfi();
-                benutzer = AuswahlsMenue.Menue("Welches Benutzer möchten sie ein Fahrzeug Ausleihen?", ausleihender);
-                Console.ReadKey();
+                benutzer = AuswahlsMenue.Menue("Welchen Benutzer möchten sie ein Fahrzeug Ausleihen?", ausleihender);
             }
             if (fahrzeugArt == 0 && benutzer != -1)
             {
@@ -435,7 +457,7 @@ namespace Buchung_2
             {
 
                 Console.WriteLine("Das Fahrzeug " + fahrzeuge[auswahl0] + ", wurde an: " + ausleihender[benutzer] + " verliehen.");
-                using (StreamWriter sw = File.AppendText(@"C:\_IAH11\MustafaSataric\Buchungen.txt"))
+                using (StreamWriter sw = File.AppendText(buchungsDb))
                 {
                     sw.WriteLine(auswahl0 + ";" + benutzer);
                 }
@@ -455,93 +477,52 @@ namespace Buchung_2
             Console.Clear();
             int leserpos = 0, auswahl = 0;
             double rabattsatzprofahrzeug = 0.05, rabattADACMittglied = 0.95;
-            string[] ausleihender = { };
             string[] ausleihenderNr = { };
             string[] fahrzeugNr = { };
-            string[] fahrzeug = { };
             string[] zsm = { };
-            using (StreamReader sr = new StreamReader(@"C:\_IAH11\MustafaSataric\Buchungen.txt"))
+            using (StreamReader sr = new StreamReader(buchungsDb))
             {
                 // Read and display lines from the file until the end of
                 // the file is reached.
                 while (!sr.EndOfStream)
                 {
 
-                    Array.Resize(ref fahrzeug, fahrzeug.Length+1);
-                    Array.Resize(ref fahrzeugNr, fahrzeugNr.Length+1);
-                    Array.Resize(ref ausleihender, ausleihender.Length+1);
-                    Array.Resize(ref ausleihenderNr, ausleihenderNr.Length+1);
-                    Array.Resize(ref zsm, zsm.Length+1);
+                    Array.Resize(ref fahrzeugNr, fahrzeugNr.Length + 1);
+                    Array.Resize(ref ausleihenderNr, ausleihenderNr.Length + 1);
+                    Array.Resize(ref zsm, zsm.Length + 1);
                     string[] zeile = sr.ReadLine().Split(';');
-                    fahrzeugNr[fahrzeugNr.Length-1] = zeile[0];
-                    ausleihenderNr[ausleihenderNr.Length-1] = zeile[1];
+                    fahrzeugNr[fahrzeugNr.Length - 1] = zeile[0];
+                    ausleihenderNr[ausleihenderNr.Length - 1] = zeile[1];
                 }
             }
-   
-            using (StreamReader br = new StreamReader(@"C:\_IAH11\MustafaSataric\Fahrzeuge.txt"))
+            for (int i = 0; i < fahrzeugNr.Length; i++)
             {
-                // Read and display lines from the file until the end of
-                // the file is reached.
-                leserpos = 0;
-                while (!br.EndOfStream)
+                zsm[i] = testFahrzeug[Convert.ToInt32(fahrzeugNr[i])].MarkeModell + " -> " + testKunde[Convert.ToInt32(ausleihenderNr[i])].Name;
+            }
+                auswahl = AuswahlsMenue.Menue("Abrechnungs Software", zsm);
+                if (auswahl != -1 && selbe && fahrzeugNr.Length > 0)
                 {
-                    string[] zeile = br.ReadLine().Split(';');
-                    for (int j = 0; j < fahrzeug.Length; j++)
-                    {
-                        if(fahrzeugNr[j] == Convert.ToString(leserpos))
-                        {
-                            fahrzeug[j] = zeile[1];
-                        }
-                    }
-                    leserpos++;
+                    double derzeiterKmStand = 0, gefahreneKm, rabatt = testKunde[Convert.ToInt32(ausleihenderNr[auswahl])].rabatt(); ;
+                    Console.Clear();
+                    Console.WriteLine("Geben sie denn derzeitigen KM stand des Fahrzeuges an: " + testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].KmStand);
+                    derzeiterKmStand = m.validitationVonDoubles(testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].KmStand, 999999);
+                    gefahreneKm = derzeiterKmStand - testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].KmStand;
+                    Console.WriteLine("\nIhr Rabattsatz: " + ((1 - rabatt) * 100) + " %");
+                    Console.WriteLine("\nKosten:" + (gefahreneKm * testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].PreisProKm + testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].Grundpreis) + "€");
+                    Console.WriteLine("\nKosten mit rabatt:" + (gefahreneKm * testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].PreisProKm + testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].Grundpreis) * rabatt + "€");
+                    Console.WriteLine("Preis für gefahrene Strecke: " + gefahreneKm * testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].PreisProKm + "€ (Pro Km: " + testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].PreisProKm + "€ )");
+                    Console.WriteLine("Preis für gefahrene Strecke mit Rabatt: " + gefahreneKm * testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].PreisProKm * rabatt + "€ (Pro Km: " + testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].PreisProKm * rabatt + "€ )");
+                    Console.WriteLine("Grundpreis: " + testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].Grundpreis + "€");
+                    Console.WriteLine("Grundpreis mit Rabatt: " + testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].Grundpreis * rabatt + "€");
+                    testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].KmStand = derzeiterKmStand;
+                    Console.WriteLine("Fahrzeug: " + testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].MarkeModell + " steht nun, \nmit " + testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].KmStand + " Km wieder zur verfügung, vorher:" + (testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].KmStand - gefahreneKm) + "Km.");
+                    Console.ReadKey();
                 }
-            }
-            using (StreamReader wr = new StreamReader(@"C:\_IAH11\MustafaSataric\Benutzer.txt"))
-            {
-                // Read and display lines from the file until the end of
-                // the file is reached.
-                leserpos = 0;
-                while (!wr.EndOfStream)
-                {
-                    string[] zeilen = wr.ReadLine().Split(';');
-                     for (int j = 0; j < ausleihender.Length; j++)
-                    {
-                        if (ausleihenderNr[j] == Convert.ToString(leserpos))
-                        {
-                            ausleihender[j] = wr.ReadLine().Split(';')[1];
-                        }
-                    }
-                    leserpos++;
-                }
-            }
-            for (int i = 0; i < fahrzeug.Length; i++)
-            {
-                zsm[i] = fahrzeug[i] + " -> " + ausleihender[i];
-            }
-            auswahl = AuswahlsMenue.Menue("Abrechnungs Software", zsm);
-            if(auswahl != -1 && selbe)
-            {
-                double derzeiterKmStand = 0, gefahreneKm, rabatt = testKunde[Convert.ToInt32(ausleihenderNr[auswahl])].rabatt();;
-                Console.Clear();
-                Console.WriteLine("Geben sie denn derzeitigen KM stand des Fahrzeuges an: " + testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].KmStand);
-                    derzeiterKmStand = m.validitationVonDoubles( testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].KmStand, 999999);
-                gefahreneKm = derzeiterKmStand - testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].KmStand;
-                Console.WriteLine("\nIhr Rabattsatz: " + ((1-rabatt) * 100) + " %");
-                Console.WriteLine("\nKosten:" + (gefahreneKm * testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].PreisProKm+ testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].Grundpreis) + "€");
-                Console.WriteLine("\nKosten mit rabatt:" + (gefahreneKm * testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].PreisProKm+ testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].Grundpreis)* rabatt+ "€");
-                Console.WriteLine("Preis für gefahrene Strecke: " + gefahreneKm * testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].PreisProKm +"€ (Pro Km: "+testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].PreisProKm +"€ )");
-                Console.WriteLine("Preis für gefahrene Strecke mit Rabatt: " + gefahreneKm * testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].PreisProKm*rabatt +"€ (Pro Km: "+testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].PreisProKm*rabatt +"€ )");
-                Console.WriteLine("Grundpreis: " + testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].Grundpreis +"€");
-                Console.WriteLine("Grundpreis mit Rabatt: " + testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].Grundpreis*rabatt +"€");
-                testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].KmStand = derzeiterKmStand;
-                Console.WriteLine("Fahrzeug: " + testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].MarkeModell + " steht nun, mit " + testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].KmStand + " Km wieder zur verfügung, vorher:" + (testFahrzeug[Convert.ToInt32(fahrzeugNr[auswahl])].KmStand-gefahreneKm) + "Km.");
-                Console.ReadKey();
-            }
 
 
+            }
         }
     }
-}
 
 
 

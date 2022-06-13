@@ -24,22 +24,22 @@ namespace Buchung_2
                 else if (wahl == 1) { ladeform = Convert.ToChar("P"); }
                 else { ladeform = Convert.ToChar("l"); }
                     Console.Write("\n\tMarke und Modell:           : ");
-                    markeModell = Console.ReadLine();
+                markeModell = m.validationVonStrings();
                     Console.Write("\n\tKm stand          : ");
-                    kmStand = m.validitationVonDoubles(0, 999999);
+                    kmStand = m.validitationVonInts(0, 999999);
                     Console.Write("\n\tPreis pro KM        : ");
                     preisProKm = m.validitationVonDoubles(0,10);
                     Console.Write("\n\tZulässiges Gesamtgewicht           : ");
-                    zulaessigesGesamtgewicht = Convert.ToInt32(m.validitationVonDoubles(2000,50000));
+                zulaessigesGesamtgewicht = m.validitationVonInts(2000,50000);
 
 
-                    using (StreamWriter sw = File.AppendText(@"C:\_IAH11\MustafaSataric\Fahrzeuge.txt"))
+                    using (StreamWriter sw = File.AppendText(Verwaltung.fahrzeugDb))
                     {
                         sw.WriteLine(ladeform + ";" + markeModell + ";" + kmStand + ";" + grundpreis + ";" + preisProKm + ";" + zulaessigesGesamtgewicht);
                     }
 
 
-                Console.Write("Fahrzeug:" + markeModell + " wurde erfolgreich zur Datenbank hinzugefügt.");
+                Console.Write("\n\nFahrzeug:" + markeModell + " wurde erfolgreich zur Datenbank hinzugefügt.");
                 Console.ReadKey();
 
             }

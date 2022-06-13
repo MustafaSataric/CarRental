@@ -25,17 +25,17 @@ namespace Buchung_2
                 else if (wahl == 2) { karosserieform = Convert.ToChar("i"); }
                 else { karosserieform = Convert.ToChar("S"); }
                 Console.Write("\n\tLeistung           : ");
-                leistung = Convert.ToInt32(m.validitationVonDoubles(20, 600));
+                leistung = m.validitationVonInts(20, 600);
                 Console.Write("\n\tKm Stand           : ");
-                kmStand = m.validitationVonDoubles(0, 999999);
+                kmStand = m.validitationVonInts(0, 999999);
                 Console.Write("\n\tGrundpreis          : ");
                 grundpreis = m.validitationVonDoubles(0, 999999);
                 Console.Write("\n\tPreis pro KM          : ");
                 preisProKm = m.validitationVonDoubles(0, 10);
                 Console.Write("\n\tMarke und Modell          : ");
-                markeModell = Console.ReadLine();
+                markeModell = m.validationVonStrings();
 
-                using (StreamWriter sw = File.AppendText(@"C:\_IAH11\MustafaSataric\Fahrzeuge.txt"))
+                using (StreamWriter sw = File.AppendText(Verwaltung.fahrzeugDb))
                 {
                     sw.WriteLine(karosserieform + ";" + markeModell + ";" + kmStand + ";" + grundpreis + ";" + preisProKm + ";" + leistung);
                 }

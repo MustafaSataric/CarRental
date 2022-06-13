@@ -25,22 +25,24 @@ namespace Buchung_2
 
             Console.WriteLine("Firmen-Konto Erstellen:");
             Console.WriteLine("\nName:");
-            name = Console.ReadLine();
+            name = m.validationVonStrings();
             Console.WriteLine("\nVorname:");
-            vorname = Console.ReadLine();
+            vorname = m.validationVonStrings();
             Console.WriteLine("\nFirmenname:");
-            firma = Console.ReadLine();
+            firma = m.validationVonStrings();
             Console.WriteLine("\nFührerschein (j/n):");
             fuehrerrschein = abfrage();
             Console.WriteLine("\nGeburtsjahr:");
-            int jahr = Convert.ToInt32(m.validitationVonDoubles(1922, 2003));
+            int jahr = m.validitationVonInts(1922, 2005);
             gebDatum = new DateTime(jahr, 1, 1, 6, 32, 0);
             Console.WriteLine("\nAnzahl an Buchungen:");
-            anzahlBuchungen = Convert.ToInt32(m.validitationVonDoubles(0, 999)); ; //automatisieren !!!    
-            using (StreamWriter sw = File.AppendText(@"C:\_IAH11\MustafaSataric\Benutzer.txt"))
+            anzahlBuchungen = m.validitationVonInts(0, 999); ; //automatisieren !!!    
+            using (StreamWriter sw = File.AppendText(Verwaltung.benutzerDb))
             {
                 sw.WriteLine("f;" + ";" + name + ";" + vorname + ";" + gebDatum + ";" + firma + ";" + anzahlBuchungen + ";" + rabattsatz);
             }
+            Console.WriteLine("\n\nNeue Benutzer " + name + " wurde anglegt.");
+            Console.ReadKey();
         }
         public override void KundeAusgeben()
         {

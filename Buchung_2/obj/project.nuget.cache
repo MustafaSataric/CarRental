@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "WKOlvZk5slWVbw1PAXKMva96wRF8eRsV3AlrWIP38AFSewVLWvCW1xCIZY7AdUcqyHMNMefiynoKYRmgrDy59w==",
+  "dgSpecHash": "VSy+MBz8eqkGfIcRhgTgRQtolkuhd0WUxZwjP0cuvFXoHKlPYUped5yTRo1EkSwMZFFr6zdIDdizsS/N4e8UnQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\satar\\source\\repos\\Buchung_2\\Buchung_2\\Buchung_2.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\satar\\OneDrive\\Desktop\\Buchung_2\\Buchung_2\\Buchung_2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\satar\\.nuget\\packages\\glaswandler.fia34.firstclass\\1.0.0\\glaswandler.fia34.firstclass.1.0.0.nupkg.sha512"
+  ],
   "logs": []
 }
