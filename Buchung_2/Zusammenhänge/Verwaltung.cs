@@ -63,9 +63,9 @@ namespace Buchung_2
                         FirmenKunde firmenKunde = new FirmenKunde();
                         firmenKunde.Name = zeile[1];
                         firmenKunde.VorName = zeile[2];
-                        firmenKunde.GebDatum = Convert.ToDateTime(zeile[4]);
-                        firmenKunde.Firma = zeile[5];
-                        firmenKunde.AnzahlBuchungen = Convert.ToInt32(zeile[6]);
+                        firmenKunde.GebDatum = Convert.ToDateTime(zeile[3]);
+                        firmenKunde.Firma = zeile[4];
+                        firmenKunde.AnzahlBuchungen = Convert.ToInt32(zeile[5]);
                         testKunde.Add(firmenKunde);
                         iLfdNr++;
                     }
