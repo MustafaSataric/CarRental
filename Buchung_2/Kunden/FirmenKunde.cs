@@ -39,7 +39,7 @@ namespace Buchung_2
             anzahlBuchungen = m.validitationVonInts(0, 999); ; //automatisieren !!!    
             using (StreamWriter sw = File.AppendText(Verwaltung.benutzerDb))
             {
-                sw.WriteLine("f;" + ";" + name + ";" + vorname + ";" + gebDatum + ";" + firma + ";" + anzahlBuchungen + ";" + rabattsatz);
+                sw.WriteLine("f" + ";" + name + ";" + vorname + ";" + gebDatum + ";" + firma + ";" + anzahlBuchungen + ";" + rabattsatz);
             }
             Console.WriteLine("\n\nNeue Benutzer " + name + " wurde anglegt.");
             Console.ReadKey();
