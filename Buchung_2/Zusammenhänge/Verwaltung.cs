@@ -15,7 +15,7 @@ namespace Buchung_2
         public const string buchungsDb = "C:\\_UNDERFOLDER\\SemirSljiivic\\Buchungen.txt";
         public void KundenVerwalten()
         {
-            Console.Title = "Rent-a-Car V1.0 © Mustafa Sataric";
+            Console.Title = "Rent-a-Car V1.0 © Semir Sljiivic";
 
 
             int auswahl = 0;
